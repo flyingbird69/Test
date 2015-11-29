@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * MainLogic
  *
- * Created by flyingbird on 11/22/15.
+ * Created by flyingbird69 on 11/22/15.
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
