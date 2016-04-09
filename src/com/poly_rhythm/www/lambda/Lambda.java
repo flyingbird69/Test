@@ -1,5 +1,10 @@
 package com.poly_rhythm.www.lambda;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 /**
  * Lambda
  *
@@ -30,7 +35,7 @@ public class Lambda {
         lambda.hoge = "this";
         lambda.hoge();
 
-        OneParam oneParam = param -> System.out.println(param);
+        OneParam oneParam = System.out::println;
         oneParam.hoge("param");
 
         MultiParam multiParam = (param1, param2) -> System.out.println(param1 + param2);
@@ -38,6 +43,33 @@ public class Lambda {
 
         lambda.hoge2();
 
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            list.add(i);
+        }
+
+        // Stream
+        boolean allMatch = list.stream().allMatch(Lambda::isEven);
+        System.out.println("allMatch:" + allMatch);
+
+        boolean anyMatch = list.stream().anyMatch(Lambda::isEven);
+        System.out.println("anyMatch:" + anyMatch);
+
+        boolean noneMatch = list.stream().noneMatch(Lambda::isEven);
+        System.out.println("noneMatch:" + noneMatch);
+
+        IntStream.rangeClosed(0, 99).boxed().filter(Lambda::isEven).parallel().forEach(i -> System.out.println("filtered:" + i));
+
+        IntStream.rangeClosed(0, 99).boxed().map(i -> i % 2).distinct().forEach(i -> System.out.println("distinct:" + i));
+
+        IntStream.rangeClosed(0, 99).boxed().collect(Collectors.groupingBy(i -> i % 2)).forEach((a, b) -> System.out.println("a:" + a + " b:" + b));
+
+
+
+    }
+
+    private static boolean isEven(Integer integer) {
+        return integer % 2 == 0;
     }
 
     private void hoge() {
